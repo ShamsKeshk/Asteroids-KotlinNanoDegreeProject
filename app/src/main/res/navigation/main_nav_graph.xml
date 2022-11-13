@@ -1,0 +1,29 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/asteroidsListFragment">
+
+    <fragment
+        android:id="@+id/asteroidsListFragment"
+        android:name="com.example.nasaapp.ui.main.AsteroidsListFragment"
+        android:label="AsteroidsListFragment"
+        tools:layout="@layout/fragment_asteroids_list">
+        <action
+            android:id="@+id/action_asteroidsListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.nasaapp.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="selectedAsteroid"
+            app:argType="com.example.core.data.NearEarth"/>
+    </fragment>
+
+</navigation>
