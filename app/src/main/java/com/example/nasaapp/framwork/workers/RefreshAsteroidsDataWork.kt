@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.core.repository.AsteroidsRepository
+import com.example.core.repository.AsteroidsRepositoryImpl
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import retrofit2.HttpException
@@ -12,7 +12,7 @@ import retrofit2.HttpException
 @HiltWorker
 class RefreshAsteroidsDataWork @AssistedInject constructor(@Assisted appContext: Context,
                                                            @Assisted params: WorkerParameters,
-                                                           val asteroidsRepository: AsteroidsRepository):
+                                                           val asteroidsRepository: AsteroidsRepositoryImpl):
     CoroutineWorker(appContext, params) {
 
     companion object {

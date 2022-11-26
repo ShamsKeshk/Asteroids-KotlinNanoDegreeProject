@@ -1,16 +1,10 @@
 package com.example.nasaapp.framwork.di
 
 import android.content.Context
-import com.example.core.repository.AsteroidsRepository
-import com.example.core.repository.LocalAsteroidsDataSource
-import com.example.core.repository.RemoteAsteroidsDataSource
-import com.example.core.usecases.GetCachedAsteroidsUseCase
-import com.example.core.usecases.GetPictureOfTheDayUseCase
-import com.example.core.usecases.GetTodayAsteroidsUseCase
-import com.example.core.usecases.GetWeekAsteroidsUseCase
+import com.example.core.repository.AsteroidsRepositoryImpl
+import com.example.core.usecases.*
 import com.example.nasaapp.domain.asteroidsUseCases.AsteroidsUseCases
 import com.example.nasaapp.framwork.local.LocalAsteroidsDataSourceImp
-import com.example.nasaapp.framwork.local.database.AsteroidsDao
 import com.example.nasaapp.framwork.remote.RemoteAsteroidsDataSourceImp
 import com.example.nasaapp.framwork.workers.RefreshAsteroidsWorkManager
 import dagger.Module
@@ -27,9 +21,9 @@ class FrameworkModule {
     @Provides
     @Singleton
     fun provideAsteroidsRepository(remoteAsteroidsDataSource: RemoteAsteroidsDataSourceImp,
-                                   localAsteroidsDataSource: LocalAsteroidsDataSourceImp): AsteroidsRepository{
+                                   localAsteroidsDataSource: LocalAsteroidsDataSourceImp): AsteroidsRepositoryImpl{
 
-        return AsteroidsRepository(remoteAsteroidsDataSource,localAsteroidsDataSource)
+        return AsteroidsRepositoryImpl(remoteAsteroidsDataSource,localAsteroidsDataSource)
     }
 
     @Provides
@@ -40,26 +34,32 @@ class FrameworkModule {
 
     @Provides
     @Singleton
-    fun provideGetTodayAsteroidsUseCase(asteroidsRepository: AsteroidsRepository): GetTodayAsteroidsUseCase {
+    fun provideGetTodayAsteroidsUseCase(asteroidsRepository: AsteroidsRepositoryImpl): GetTodayAsteroidsUseCase {
        return GetTodayAsteroidsUseCase(asteroidsRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetWeekAsteroidsUseCase(asteroidsRepository: AsteroidsRepository): GetWeekAsteroidsUseCase{
+    fun provideGetWeekAsteroidsUseCase(asteroidsRepository: AsteroidsRepositoryImpl): GetWeekAsteroidsUseCase{
         return GetWeekAsteroidsUseCase(asteroidsRepository)
     }
 
     @Provides
     @Singleton
-    fun provideGetCachedAsteroidsUseCase(asteroidsRepository: AsteroidsRepository): GetCachedAsteroidsUseCase{
+    fun provideGetCachedAsteroidsUseCase(asteroidsRepository: AsteroidsRepositoryImpl): GetCachedAsteroidsUseCase{
         return GetCachedAsteroidsUseCase(asteroidsRepository)
     }
 
     @Provides
     @Singleton
-    fun provideAsteroidsPictureOfTheDayUseCase(asteroidsRepository: AsteroidsRepository): GetPictureOfTheDayUseCase{
-        return GetPictureOfTheDayUseCase(asteroidsRepository)
+    fun provideAsteroidsPictureOfTheDayUseCase(asteroidsRepositoryImpl: AsteroidsRepositoryImpl): GetPictureOfTheDayUseCase{
+        return GetPictureOfTheDayUseCase(asteroidsRepositoryImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAsteroidByIdUseCase(asteroidsRepositoryImpl: AsteroidsRepositoryImpl): GetAsteroidByIdUseCase{
+        return GetAsteroidByIdUseCase(asteroidsRepositoryImpl)
     }
 
     @Provides
@@ -67,7 +67,8 @@ class FrameworkModule {
     fun provideAsteroidsUseCases(getTodayAsteroidsUseCase: GetTodayAsteroidsUseCase,
                                  getCachedAsteroidsUseCase: GetCachedAsteroidsUseCase,
                                  getWeekAsteroidsUseCase: GetWeekAsteroidsUseCase,
-                                 getPictureOfTheDayUseCase: GetPictureOfTheDayUseCase): AsteroidsUseCases {
-        return AsteroidsUseCases(getWeekAsteroidsUseCase,getCachedAsteroidsUseCase,getTodayAsteroidsUseCase,getPictureOfTheDayUseCase)
+                                 getPictureOfTheDayUseCase: GetPictureOfTheDayUseCase,
+                                 getAsteroidByIdUseCase: GetAsteroidByIdUseCase): AsteroidsUseCases {
+        return AsteroidsUseCases(getWeekAsteroidsUseCase,getCachedAsteroidsUseCase,getTodayAsteroidsUseCase,getPictureOfTheDayUseCase,getAsteroidByIdUseCase)
     }
 }

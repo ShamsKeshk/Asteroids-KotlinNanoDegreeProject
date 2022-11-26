@@ -1,28 +1,15 @@
 package com.example.core.repository
 
 import com.example.core.data.NearEarth
+import com.example.core.data.PictureOfDay
 
-class AsteroidsRepository(private val remoteDataSource: RemoteAsteroidsDataSource,
-                          private val localAsteroidsDataSource: LocalAsteroidsDataSource) {
+interface AsteroidsRepository {
 
-    suspend fun getAsteroidsData(isForceUpdateData: Boolean = false): List<NearEarth> {
-        val cachedData = localAsteroidsDataSource.getLocalAsteroids()
-        if (cachedData.isNotEmpty() && !isForceUpdateData)
-            return cachedData
+    suspend fun getAsteroidsData(isForceUpdateData: Boolean = false): List<NearEarth>
+    suspend fun getCachedAsteroidsData(): List<NearEarth>
+    suspend fun getTodayAsteroidsData(): List<NearEarth>
+    suspend fun getAsteroidDataById(id: String): NearEarth
+    suspend fun getPictureOfDay(): PictureOfDay
 
-        val remoteDate = remoteDataSource.getRemoteAsteroids()
-        localAsteroidsDataSource.deleteCache()
-        localAsteroidsDataSource.insertAsteroids(remoteDate.near_earth_objects)
-        return localAsteroidsDataSource.getLocalAsteroids()
-    }
 
-    suspend fun getCachedAsteroidsData(): List<NearEarth>{
-        return localAsteroidsDataSource.getLocalAsteroids()
-    }
-
-    suspend fun getTodayAsteroidsData(): List<NearEarth>{
-        return localAsteroidsDataSource.getTodayAsteroidsData()
-    }
-
-    suspend fun getPictureOfDay() = remoteDataSource.getPictureOfTheDay()
 }

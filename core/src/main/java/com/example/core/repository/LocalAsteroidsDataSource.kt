@@ -11,4 +11,6 @@ interface LocalAsteroidsDataSource {
     suspend fun getTodayAsteroidsData(): List<NearEarth>
 
     suspend fun deleteCache()
+
+    suspend fun getAsteroidDataById(id: String): NearEarth
 }

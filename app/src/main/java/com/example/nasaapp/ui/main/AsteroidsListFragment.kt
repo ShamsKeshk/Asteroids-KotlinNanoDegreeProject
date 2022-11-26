@@ -2,7 +2,6 @@ package com.example.nasaapp.ui.main
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -50,7 +49,7 @@ class AsteroidsListFragment : Fragment(), OnAsteroidsItemClicked {
 
     override fun onAsteroidClicked(nearEarth: NearEarth) {
         findNavController()
-            .navigate(AsteroidsListFragmentDirections.actionAsteroidsListFragmentToDetailFragment(nearEarth))
+            .navigate(AsteroidsListFragmentDirections.actionAsteroidsListFragmentToDetailFragment(nearEarth.id))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

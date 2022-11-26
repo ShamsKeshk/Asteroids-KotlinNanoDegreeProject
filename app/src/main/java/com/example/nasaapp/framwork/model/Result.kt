@@ -1,9 +1,12 @@
 package com.example.nasaapp.framwork.model
 
-sealed interface Result<out T> {
-    data class Success<T>(val data: T) : Result<T>
-    data class Error(val exception: Throwable? = null) : Result<Nothing>
-    object Loading : Result<Nothing>
+sealed class Result<out T> {
+
+    data class Success<T>(val data: T) : Result<T>()
+
+    data class Error(val exception: Throwable? = null) : Result<Nothing>()
+
+    object Loading : Result<Nothing>()
 
     fun isSuccessful(): Boolean{
         return this is Success
@@ -27,5 +30,12 @@ sealed interface Result<out T> {
 
         return true
     }
+}
+
+ fun <T> Result<T>.getData(): T?{
+     if (this is Result.Success)
+         return this.data
+
+     return null
 }
 

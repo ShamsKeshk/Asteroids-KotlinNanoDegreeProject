@@ -7,7 +7,7 @@ import com.example.nasaapp.framwork.local.data.NearEarthEntity
 import com.example.nasaapp.framwork.local.database.AsteroidsDao
 import javax.inject.Inject
 
-class LocalAsteroidsDataSourceImp @Inject constructor(val asteroidsDao: AsteroidsDao): LocalAsteroidsDataSource {
+class LocalAsteroidsDataSourceImp @Inject constructor(private val asteroidsDao: AsteroidsDao): LocalAsteroidsDataSource {
 
     override suspend fun insertAsteroids(listOfNearEarth: List<NearEarth>?) {
 
@@ -37,5 +37,9 @@ class LocalAsteroidsDataSourceImp @Inject constructor(val asteroidsDao: Asteroid
 
     override suspend fun deleteCache() {
         asteroidsDao.deleteCache()
+    }
+
+    override suspend fun getAsteroidDataById(id: String): NearEarth {
+        return asteroidsDao.getAsteroidById(id).asDomain()
     }
 }

@@ -8,7 +8,7 @@ import com.example.nasaapp.framwork.local.data.NearEarthEntity
 interface AsteroidsDao {
 
     @Query("SELECT * FROM asteroids WHERE id = :asteroidId")
-    suspend fun getAsteroidById(asteroidId: Long): NearEarthEntity?
+    suspend fun getAsteroidById(asteroidId: String): NearEarthEntity
 
     @Query("DELETE from asteroids")
     suspend fun deleteCache()

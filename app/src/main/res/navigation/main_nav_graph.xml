@@ -22,8 +22,8 @@
         tools:layout="@layout/fragment_detail">
 
         <argument
-            android:name="selectedAsteroid"
-            app:argType="com.example.core.data.NearEarth"/>
+            android:name="selectedAsteroidId"
+            app:argType="string"/>
     </fragment>
 
 </navigation>

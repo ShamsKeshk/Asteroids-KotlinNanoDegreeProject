@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.data.NearEarth
 import com.example.core.data.PictureOfDay
-import com.example.core.repository.AsteroidsRepository
 import com.example.nasaapp.domain.asteroidsUseCases.AsteroidsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -23,6 +22,8 @@ class AsteroidsViewModel @Inject constructor(
     refreshAsteroidsWorkManager: RefreshAsteroidsWorkManager): ViewModel() {
 
     private val listOfNearestEarthObjects = MutableLiveData<Result<List<NearEarth>>>()
+
+    private val selectedNearestEarthObject = MutableLiveData<Result<NearEarth>>()
 
     fun asteroidsLiveDate(): LiveData<Result<List<NearEarth>>>{
        return listOfNearestEarthObjects
@@ -97,4 +98,18 @@ class AsteroidsViewModel @Inject constructor(
                 }
         }
     }
+
+    fun syncSelectedNearEarthObject(id: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            selectedNearestEarthObject.postValue(Result.Loading)
+            try {
+                val result = asteroidsUseCases.getAsteroidByIdUseCase.getCachedAsteroidsData(id)
+                selectedNearestEarthObject.postValue(Result.Success(result))
+            } catch (e: Exception) {
+                selectedNearestEarthObject.postValue(Result.Error(e))
+            }
+        }
+    }
+
+    fun getSelectedNearEarthLiveData() = selectedNearestEarthObject
 }
