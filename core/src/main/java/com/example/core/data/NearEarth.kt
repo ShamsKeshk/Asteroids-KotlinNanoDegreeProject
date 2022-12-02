@@ -1,9 +1,5 @@
 package com.example.core.data
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class NearEarth(
     val links: Links?,
     val id: String,
@@ -16,7 +12,7 @@ data class NearEarth(
     val is_potentially_hazardous_asteroid: Boolean,
     val close_approach_data: List<CloseApproachData>?,
     val is_sentry_object: Boolean
-): Parcelable{
+){
 
 
     fun getCloseApproachData(): String?{

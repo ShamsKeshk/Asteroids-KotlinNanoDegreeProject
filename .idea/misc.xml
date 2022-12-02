@@ -7,11 +7,11 @@
         <entry key="app/src/main/res/drawable/placeholder_picture_of_day.xml" value="0.1635" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/asteroid_item.xml" value="0.415625" />
-        <entry key="app/src/main/res/layout/empty_esteroids_state.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/empty_esteroids_state.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_asteroids_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.415625" />
-        <entry key="app/src/main/res/layout/loading_state.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/loading_state.xml" value="0.25" />
         <entry key="app/src/main/res/menu/main_overflow_menu.xml" value="0.415625" />
       </map>
     </option>
